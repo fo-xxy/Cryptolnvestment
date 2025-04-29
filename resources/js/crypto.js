@@ -1,5 +1,8 @@
 function cargarCriptomonedas() {
-    axios.get('/Cryptolnvestment/public/getInfo')
+
+    var dataPriceTable = document.getElementById(dataPrice);
+
+    axios.get('/Cryptolnvestment/public/getPrice')
         .then(function (response) {
             var data = response.data;
 
@@ -28,7 +31,7 @@ function cargarCriptomonedas() {
             });
 
             tableContent += `</tbody></table>`;
-            document.getElementById('result').innerHTML = tableContent;
+            document.getElementById('dataPrice').innerHTML = tableContent;
         })
         .catch(function (error) {
             console.error(error);
@@ -36,8 +39,64 @@ function cargarCriptomonedas() {
         });
 }
 
+
+function buscarInformacionCripto(){
+
+    var symbol = document.getElementById("txtIdCripto").value.trim().toUpperCase();
+
+    if (!symbol) {
+        alert("Por favor, ingrese un símbolo de criptomoneda (ej. BTC, ETH)");
+        return;
+    }
+
+    axios.get('/Cryptolnvestment/public/getInfo', {
+        params: { symbol: symbol }
+    })
+    .then(function (response){
+        var data = response.data; // CORREGIDO
+    
+        console.log(response.data);
+        var tableContent = `
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Descripción</th>
+                    <th>Fecha</th>
+                    <th>Nombre</th>
+                    <th>Simbolo</th>
+                    <th>Website</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>${data.category}</td>
+                    <td>${data.description}</td>
+                    <td>${data.date_added}</td>
+                    <td>${data.name}</td>
+                    <td>${data.symbol}</td>
+                    <td><a href="${data.website}" target="_blank">${data.website}</a></td>
+                </tr>
+            </tbody>
+        </table>`;
+        
+    
+        tableContent += `</tbody></table>`;
+        document.getElementById('info').innerHTML = tableContent;
+    })
+    .catch(error => {
+        console.error(error);
+
+        document.getElementById('result').innerHTML = `
+        <div class="alert alert-danger">No se encontraron datos para el id: "${symbol}".</div>`;
+
+    });
+}
+
 // Llamar inmediatamente al cargar la página
 cargarCriptomonedas();
 
+//buscarInformacionCripto();
+
 // Luego actualizar cada 30 segundos
-setInterval(cargarCriptomonedas, 30000);
+//setInterval(cargarCriptomonedas, 30000);

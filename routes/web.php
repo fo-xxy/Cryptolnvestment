@@ -17,6 +17,11 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::get('visualizar', [HomeController::class, 'view']);
 
-Route::get('getInfo', [CryptoController::class, 'getAllCryptoPrices']);
+Route::get('getPrice', [CryptoController::class, 'getAllCryptoPrices']);
+
+Route::get('getInfo', [CryptoController::class, 'getCryptoInfo']);
+
+
+
 
 
