@@ -89,8 +89,6 @@ priceChartInstance = new Chart(ctx, {
         });
 }
 
-
-
 //Función para buscar una cripto en especifico
 function buscarInformacionCripto() {
 
@@ -142,7 +140,6 @@ function buscarInformacionCripto() {
         <div class="alert alert-danger">No se encontraron datos para la criptomoneda con el id: "${symbol}".</div>`;
         });
 }
-
 
 //Función para mostrar el historico
 async function historico() {
@@ -206,7 +203,6 @@ async function historico() {
     document.getElementById('fechaHasta').addEventListener('change', () => table.draw());
 
 }
-
 
 
 //Se llaman las funciones para que se ejecuten al inicializar la pagina 

@@ -66,7 +66,7 @@ class CryptoController extends Controller
         }
     }
 
-    //Función para obtener la información de una criptomoneda en especifico
+    //Método para obtener la información de una criptomoneda en especifico
     public function getCryptoInfo(Request $request)
     {
         //echo $request;
